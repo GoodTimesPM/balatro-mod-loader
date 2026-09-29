@@ -1,0 +1,10 @@
+# Kept minimal on purpose, same reasoning as job-radar: the fewer moving
+# parts, the fewer ways a long unattended `fetch --all` run can die.
+requests>=2.31
+
+# Optional, and only the window uses it: scaling a README screenshot to the
+# width of the pane. Tk can decode PNG and GIF by itself but can only shrink by
+# whole-number subsampling, so a 1600px screenshot becomes 800 or 533 and never
+# 420. Without Pillow the Page tab still shows its images, just coarsely sized;
+# nothing else in the project notices it is missing.
+pillow>=10.0

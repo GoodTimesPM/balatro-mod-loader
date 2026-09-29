@@ -1,0 +1,24 @@
+.env
+__pycache__/
+*.pyc
+data/catalog.db
+data/cache/
+logs/
+
+# Timestamped and regenerable -- `report` writes a new one every run, and the
+# current numbers live in PROJECT.md.
+data/reports/
+
+# PyInstaller output. `assets/bml.ico` IS committed -- it is source, drawn by
+# tools/make_icon.py -- but a 30 MB exe rebuilt on every code change is not.
+build/
+dist/
+*.spec
+
+# Local repo URL corrections.
+data/repo-overrides.json
+
+# Your own mod lists and hand-added mods. The Cryptid pin ships with the repo.
+profiles/
+local-index/*
+!local-index/MathIsFun0@Cryptid/
