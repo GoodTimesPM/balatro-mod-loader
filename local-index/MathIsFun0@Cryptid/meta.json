@@ -1,0 +1,10 @@
+{
+  "title": "Cryptid",
+  "author": "MathIsFun0",
+  "repo": "https://github.com/MathIsFun0/Cryptid",
+  "downloadURL": "https://github.com/MathIsFun0/Cryptid/archive/refs/tags/v0.5.16d.zip",
+  "version": "v0.5.16d",
+  "categories": ["Content"],
+  "bmlCategory": "SUITS-CARDS-VOUCHERS-SEALS-CONSUMABLES",
+  "description": "Pinned to the released tag. The community index names a bare commit SHA (0974a5d) for Cryptid, and every fallback path from there lands on the default branch, which is 0.5.17~dev -- an unreleased build that requires Steamodded >=1.0.0~BETA-1925a. The released v0.5.16d requires only >=1.0.0~BETA-1501a. Nobody ships 0.5.17~dev; the Cryptid Discord and the GitHub releases page both point at v0.5.16d, so that is what the vault should hold. Remove this file once the index catches up to a real release."
+}
