@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+from urllib.parse import urlsplit
+
 import requests
+import requests.auth
 
 from . import config
 
@@ -14,6 +17,27 @@ USER_AGENT = (
 )
 
 
+GITHUB_HOSTS = {"github.com", "api.github.com", "codeload.github.com",
+                "raw.githubusercontent.com", "objects.githubusercontent.com"}
+
+
+class _GitHubOnly(requests.auth.AuthBase):
+    """Adds the token to requests for GitHub hosts and nothing else.
+
+    A session-wide header would go to every host this session talks to,
+    including Thunderstore and whatever server a mod's download link names.
+    """
+
+    def __init__(self, token: str):
+        self.token = token
+
+    def __call__(self, request):
+        host = (urlsplit(request.url).hostname or "").lower()
+        if urlsplit(request.url).scheme == "https" and host in GITHUB_HOSTS:
+            request.headers["Authorization"] = f"Bearer {self.token}"
+        return request
+
+
 def session() -> requests.Session:
     global _SESSION
     if _SESSION is None:
@@ -21,9 +45,9 @@ def session() -> requests.Session:
         _SESSION.headers.update({"User-Agent": USER_AGENT})
         token = config.github_token()
         if token:
-            # Only sent to github.com/codeload; requests strips auth headers
-            # on cross-host redirects, which is the behaviour we want.
-            _SESSION.headers.update({"Authorization": f"Bearer {token}"})
+            # Applied per request, so only GitHub sees it. requests also drops
+            # Authorization when a redirect changes host.
+            _SESSION.auth = _GitHubOnly(token)
     return _SESSION
 
 
